@@ -1,0 +1,28 @@
+:root {
+    --fg-up: #b0ebdd;
+    --fg-down: #3c73b7;
+    --surface: #f3c78d;
+
+    --bubble-color: #52e3d2;
+    --bubble-outline: #ffff;
+    --bubble-inside: #fff;
+
+    --text: #1d3a52;
+    --text-muted: #253d4c;
+    --title: #2e2d63;
+    --text-header: #f3f4ff;
+    --text-footer: #c7cce0;
+
+    --accent-hover: #03423e;
+    --accent-amber: #ffbb00;
+    --footer-link: #ffbe80;
+
+    --header-bg: #34466f;
+    --header-bg-hover: #202f52;
+    --footer-bg: #282f42;
+    --footer-bg-hover: #222630;
+    --border: #7a431e;
+
+    --font-ui: "Space Grotesk", system-ui, sans-serif;
+    --font-mono: "Fira Code", "Cascadia Code", monospace;
+}

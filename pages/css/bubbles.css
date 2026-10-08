@@ -1,0 +1,54 @@
+.bubbles {
+    position: fixed;
+    z-index: -1;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.bubble {
+    position: absolute;
+    bottom: -120px;
+    left: var(--bubble-left);
+    width: var(--bubble-size);
+    height: var(--bubble-size);
+    border-radius: 50%;
+    background: radial-gradient(
+          circle at 30% 25%,
+          rgb(255 255 255 / 0.8) 0%,
+          rgb(255 255 255 / 0.2) 18%,
+          var(--bubble-color) 65%,
+          #2da973 100%
+      );
+
+    /*background: 50% 50% radial-gradient(circle,rgba(255, 255, 255, 0.292) 0%, rgba(119, 237, 203, 0.635) 50%, rgba(46, 59, 105, 1) 100%);*/
+    opacity: 0.5;
+    animation: rise var(--bubble-duration) infinite ease-in;
+    animation-delay: var(--bubble-delay);
+    border: 2px solid #1d2b6b;
+
+}
+
+@keyframes rise {
+    from {
+        transform: translate(0, 0);
+    }
+
+    to {
+        transform: translate(-150px, calc(-100vh - 240px));
+    }
+}
+
+html[data-bubbles="js"] .bubble {
+    top: 0;
+    bottom: auto;
+    left: 0;
+    animation: none;
+    will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bubbles {
+        display: none;
+    }
+}

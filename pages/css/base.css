@@ -1,0 +1,38 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--fg-down);
+    background-image: linear-gradient(0deg, var(--fg-down), var(--fg-up));
+    color: var(--text);
+    font-family: var(--font-ui);
+    font-weight: 400;
+    text-align: left;
+}
+
+code,
+pre,
+kbd,
+samp {
+    font-family: var(--font-mono);
+}
+
+.barList {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0.75rem;
+}
+
+.barList a {
+    padding: 0.5rem 0.625rem;
+}

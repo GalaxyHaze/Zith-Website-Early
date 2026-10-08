@@ -1,0 +1,33 @@
+# ZWS_Prototype — ignora trabalho de agente/ferramentas e ruido local.
+# O site (HTML/CSS/JS/media) e docs/ SAO versionados.
+
+# --- Trabalho de agente / scratch ---
+.agents/
+.codex/
+.opencode/
+.scratch/
+*.local
+
+# --- Caches / build ---
+.cache/
+build/
+dist/
+_site/
+__pycache__/
+*.py[cod]
+
+# --- Editores / IDE ---
+.vscode/
+.idea/
+*.swp
+*~
+
+# --- SO ---
+.DS_Store
+Thumbs.db
+
+# --- Segredos / ambiente ---
+.env
+.env.*
+!.env.example
+notes/
