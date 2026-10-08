@@ -46,6 +46,8 @@ python3 -m http.server 5501 --directory _site
 
 As paginas-fonte vivem em `pages/` (com os seus `css/` e `media/`). Os parciais
 sao expandidos no build; o resto e copiado tal e qual.
+O workflow do GitHub Pages define automaticamente `baseurl` a partir do nome
+do repositorio; localmente, o build deixa-o vazio para servir o site na raiz.
 
 O parcial `bubbles` e especial: o build gera as bolhas com posicoes fixas
 (PRNG semeado, resultado reproduzivel) e parametrizaveis no include:

@@ -71,8 +71,15 @@ def parse_meta(text: str) -> tuple[dict[str, str], str]:
     return meta, text[match.end():]
 
 
-def render(text: str, partials: Path, meta: dict[str, str], seed: int = BUBBLE_SEED) -> str:
+def render(
+    text: str,
+    partials: Path,
+    meta: dict[str, str],
+    seed: int = BUBBLE_SEED,
+    baseurl: str = "",
+) -> str:
     """Expande includes (recursivamente) e placeholders."""
+    page_values = {**meta, "baseurl": baseurl}
 
     def render_bubbles(values: dict[str, str]) -> str:
         """Gera o markup das bolhas com posicoes/tamanhos fixos por build.
@@ -124,7 +131,7 @@ def render(text: str, partials: Path, meta: dict[str, str], seed: int = BUBBLE_S
     def expand(match: re.Match) -> str:
         name = match.group(1)
         args = dict(ARG.findall(match.group(2)))
-        values = {**meta, **args}
+        values = {**page_values, **args}
         path = partials / f"{name}.html"
         if not path.is_file():
             raise SystemExit(f"build: include '{name}' nao encontrado em {path}")
@@ -141,10 +148,16 @@ def render(text: str, partials: Path, meta: dict[str, str], seed: int = BUBBLE_S
     while INCLUDE.search(text):
         text = INCLUDE.sub(expand, text)
     # Placeholders da propria pagina (ex.: {{title}} no <head>).
-    return VAR.sub(lambda v: meta.get(v.group(1), v.group(0)), text)
+    return VAR.sub(lambda v: page_values.get(v.group(1), v.group(0)), text)
 
 
-def build(src: Path, out: Path, partials: Path, seed: int = BUBBLE_SEED) -> int:
+def build(
+    src: Path,
+    out: Path,
+    partials: Path,
+    seed: int = BUBBLE_SEED,
+    baseurl: str = "",
+) -> int:
     if not partials.is_dir():
         raise SystemExit(f"build: falta a pasta de parciais: {partials}")
     if out.exists():
@@ -164,7 +177,7 @@ def build(src: Path, out: Path, partials: Path, seed: int = BUBBLE_SEED) -> int:
         dst.parent.mkdir(parents=True, exist_ok=True)
         if path.suffix.lower() == ".html":
             meta, body = parse_meta(path.read_text(encoding="utf-8"))
-            dst.write_text(render(body, partials, meta, seed), encoding="utf-8")
+            dst.write_text(render(body, partials, meta, seed, baseurl), encoding="utf-8")
             pages += 1
         else:
             shutil.copy2(path, dst)
@@ -183,8 +196,19 @@ def main() -> None:
         default=BUBBLE_SEED,
         help=f"semente do sorteio das bolhas (default: {BUBBLE_SEED})",
     )
+    parser.add_argument(
+        "--baseurl",
+        default="",
+        help="prefixo do URL do site, por exemplo /Zith-Website-Early",
+    )
     args = parser.parse_args()
-    pages = build(args.src.resolve(), args.out.resolve(), args.partials.resolve(), args.seed)
+    pages = build(
+        args.src.resolve(),
+        args.out.resolve(),
+        args.partials.resolve(),
+        args.seed,
+        args.baseurl.rstrip("/"),
+    )
     print(f"build: {pages} pagina(s) HTML -> {args.out} (seed={args.seed})")
 
 
