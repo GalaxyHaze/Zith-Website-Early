@@ -1,0 +1,49 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--header-bg);
+    color: var(--text-header);
+}
+
+.header a {
+    border-radius: 0.625rem;
+    color: var(--text-header);
+    text-decoration: none;
+    transition: color 200ms, background-color 200ms;
+}
+
+.header a:hover {
+    background-color: var(--header-bg-hover);
+    color: var(--accent-amber);
+}
+
+.header a:focus-visible {
+    outline: 3px solid currentColor;
+    outline-offset: 3px;
+}
+
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 3rem;
+    height: 3rem;
+    margin-inline: 0.625rem;
+    border-radius: 0.625rem;
+    transition: background-color 200ms;
+}
+
+.icon:hover {
+    background-color: var(--header-bg-hover);
+}
+
+.icon img {
+    display: block;
+}
+
+.icon a:hover {
+    background-color: transparent;
+}
